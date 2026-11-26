@@ -1,5 +1,5 @@
 {
-  "_note": "论文报告的每一个数值。scripts/verify_reference.py 会用它做确定性反算核对；scripts/demo_scores_from_reference.py 会用它合成可跑通全流程的模拟数据。null 表示论文未报告该单元格。",
+
   "source": "When Surprise Does Not Predict Value: Computational Metrics and Human Judgments of Diffusion-Generated Art (Xin Zhang, Dmitry Galkin, Tomsk State University)",
   "image_counts": {
     "original_150x5x3": 2250,
@@ -59,7 +59,7 @@
       "_excluded": ["lms", "heun"]
     },
     "clip_score": {
-      "_note": "论文未报告逐采样器的 CLIP Score 均值，只报告了相关分析",
+   
       "per_sampler": null
     }
   },
