@@ -1,9 +1,4 @@
-"""DreamSim 随机多样性（论文 2.4 节）。
 
-在每个采样器可用的种子集合上，计算图像两两之间的 DreamSim 距离，
-作为该配置的随机多样性指标。依赖 dreamsim 包。
-
-用法：
     python -m src.evaluation.dreamsim_diversity --images outputs/images/original --out outputs/scores/dreamsim_original.csv
     python -m src.evaluation.dreamsim_diversity --self-test
 """
