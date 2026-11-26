@@ -1,12 +1,4 @@
-"""评分表的生成与整理。
 
-生成两类空白评分表（供线上实现或线下抄录）：
-    outputs/ratings/student_sheet_template.csv   192 图 x 5 维度，4 位评分者
-    outputs/ratings/expert_sheet_template.csv     90 图 x (惊喜度 + 3 项创造价值)，8 位评分者
-
-并把原始长表评分聚合为图像级均值，输出分析所需的宽表。
-
-用法：
     python -m src.rating.rating_io --make-templates
     python -m src.rating.rating_io --aggregate outputs/ratings/student_raw.csv --out outputs/ratings/student_image_means.csv
 """
