@@ -1,13 +1,4 @@
-"""重绘论文 Fig. 2 - Fig. 5（数值取自 data/reference_results.json）。
 
-放入真实数据后，同样的函数会改用真实表格，图会自动更新。
-
-    Fig. 2  八个采样器的学生评分均值（惊喜度等维度）
-    Fig. 3  计算指标与人类判断的对齐矩阵
-    Fig. 4  噪声尺度上的专家评分曲线（描述性倒 U 形）
-    Fig. 5  固定效应与效应量面板
-
-用法：
     python -m src.analysis.figures
 """
 
