@@ -1,13 +1,3 @@
-"""按顺序运行复现流水线的第 3、4 阶段（评分可靠性与统计建模/绘图）。
-
-第 2 阶段需要 GPU 与 diffusers，不在本脚本内；若 outputs/scores 下已有真实指标 CSV，
-本脚本会直接使用它们，否则请先生成演示数据：
-    python scripts/demo_scores_from_reference.py
-
-用法：
-    python scripts/run_pipeline.py
-    python scripts/run_pipeline.py --with-demo    # 先合成演示数据再跑流水线
-"""
 
 from __future__ import annotations
 
