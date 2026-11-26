@@ -1,15 +1,4 @@
-"""专家评分的单因素方差分析与 Tukey HSD（论文 2.8 / 3.4 节）。
 
-设计：把 90 张图的专家评分（8 位评分者已聚合为图像级均值）按三个噪声尺度
-（0 / 0.5 / 1.0）分组，对「惊喜度」与「创造价值」两个构念各做一次单因素方差分析。
-多重比较校正：两个构念各按 Bonferroni 校正后的 alpha = 0.025 判定；事后用 Tukey HSD。
-
-论文报告：
-    surprise       F(2, 87) = 4.12, p = 0.020, eta2 = 0.087
-    creative_value F(2, 87) = 4.18, p = 0.019, eta2 = 0.088
-    Tukey 事后均不显著（surprise: q=2.61/2.35/0.26；value: q=2.87/1.15/1.72）
-
-用法：
     python -m src.analysis.expert_anova --ratings outputs/ratings/expert_image_means.csv
 """
 
