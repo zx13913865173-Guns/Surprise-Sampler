@@ -1,9 +1,4 @@
-"""无参考图像质量：NIQE 与 BRISQUE（论文 2.4 节，逐图计算）。
 
-实现依赖 pyiqa（`pyiqa.create_metric('niqe')` / `('brisque')`）。未安装时给出提示。
-这两项指标按论文口径在 CPU/GPU 上逐图计算，再按采样器聚合为均值。
-
-用法：
     python -m src.evaluation.niqe_brisque --images outputs/images/original --out outputs/scores/niqe_brisque_original.csv
     python -m src.evaluation.niqe_brisque --self-test
 """
