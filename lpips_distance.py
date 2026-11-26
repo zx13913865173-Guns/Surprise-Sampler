@@ -1,13 +1,6 @@
-"""LPIPS 种子间感知距离（论文 2.4 节）。
 
-论文口径：对五个原始采样器，LPIPS 在三个种子图之间两两计算（每提示词三对）；
-对实验 A 的三个采样器，在两个种子图之间计算（每提示词一对）。
-它是稳定性/距离度量，不是无参考质量分。
 
-实现：优先用 lpips 包（AlexNet 或 VGG 骨干，与 configs/experiment.yaml 中
-``computational_metrics.lpips.backbone`` 一致）；未安装时给出明确提示。
 
-用法：
     python -m src.evaluation.lpips_distance --images outputs/images/original --out outputs/scores/lpips_original.csv
     python -m src.evaluation.lpips_distance --self-test
 """
