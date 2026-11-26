@@ -1,13 +1,5 @@
-"""第 2 阶段：用 Diffusers 生成论文分析的全部图像。
 
-论文 2.3 节：SDXL Base 1.0，Diffusers v0.25.0，CFG 7.5，30 步，1024x1024，
-主评分集种子 42，负向提示词 "low quality, blurry, distorted, ugly, bad anatomy"。
 
-采样器 -> 调度器映射见 configs/samplers.yaml。实验 B 的连续噪声尺度操纵
-（0 / 0.25 / 0.5 / 0.75 / 1.0）实现为 EulerAncestralDiscreteScheduler.step 的
-``s_noise`` 参数：尺度 0 即确定性 Euler 极限，尺度 1.0 即标准全量祖先噪声注入。
-
-用法：
     python -m src.generation.generate_diffusers --experiment original experiment_a
     python -m src.generation.generate_diffusers --experiment experiment_b --limit 4
 """
