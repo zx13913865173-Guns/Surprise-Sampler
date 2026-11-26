@@ -1,24 +1,4 @@
-"""学生评分的线性混合模型（论文 2.8 / 3.2 / 3.7 节）。
 
-模型：
-    M1: Surprise ~ Sampler (8 levels) + (1|Prompt)
-    M2: Surprise ~ Sampler + clarity + (1|Prompt)
-
-论文报告（Satterthwaite 自由度）：
-    M1: F(7, 184) = 2.41, p = 0.022, marginal R2 = 0.09, conditional R2 = 0.16
-    M2: F(7, 183) = 2.18, p = 0.039, marginal R2 = 0.08, conditional R2 = 0.15；
-        clarity 协变量 p < 0.001；Euler a vs DDIM 未校正 p = 0.006
-
-本模块用 statsmodels MixedLM 拟合并给出：
-    - 采样器固定效应的 Wald F 检验（results.f_test）
-    - 边际 / 条件 R2（Nakagawa 口径）
-    - 事后两两比较（未校正 p 与 Bonferroni 校正后 p）
-
-说明：Satterthwaite 分母自由度需 lmerTest，严格的 F(df1, df2) 报告请运行
-docs/ 中给出的 R 脚本；本模块的 f_test 给出的是 Wald F（分子自由度 = q）。
-两条路径在同一数据上应当给出一致的方向与量级。
-
-用法：
     python -m src.analysis.student_model --ratings outputs/ratings/student_image_means.csv
 """
 
