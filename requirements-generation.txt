@@ -1,4 +1,4 @@
-# 第 2 阶段：图像生成（需要 GPU 与 CUDA）
+
 -r requirements.txt
 torch>=2.1
 diffusers>=0.25.0
