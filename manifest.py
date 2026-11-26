@@ -1,15 +1,4 @@
-"""把提示词清单展开成逐图生成任务，并强制核对图像数量。
 
-论文 2.1 节的四个集合：
-    original      150 提示词 x 5 采样器 x 3 种子 = 2250
-    experiment_a   24 提示词 x 3 采样器 x 2 种子 =  144
-    experiment_b   24 提示词 x 5 噪声尺度 x 2 种子 = 240
-    experiment_c   20 基础提示词 x 2 类型 x 5 采样器 x 1 种子 = 200
-                                        合计 = 2834
-
-其中只有 24 条提示词进入分析（analysis=True）；其余 126 条仅入库不再分析。
-
-用法：
     python -m src.generation.manifest
     python -m src.generation.manifest --verify   # 只核对数量，不写文件
 """
