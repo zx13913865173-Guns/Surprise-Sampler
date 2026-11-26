@@ -1,27 +1,43 @@
-# prompts/
+# When Surprise and Creative Value Show Different Orderings: Computational Metrics and Human Judgments of Diffusion-Generated Art
 
-全部提示词清单，数字化自论文 2.2 节的设计描述。
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/release/python-390/)
 
-| 文件 | 条目数 | 论文出处 | 说明 |
-|---|---|---|---|
-| `abstract_prompts_150.json` | 150 | 2.2 节 | 原始抽象概念提示词池。不含具体物体指称与风格限定词 |
-| `analysis_prompts_24.json` | 24 | 2.1 节 | 从 150 条中选出的分析集；计算指标、学生评分、实验 A/B 全部用它 |
-| `prompt_types_20.json` | 20 x 2 | 2.2 节 | 实验 C 的 20 条基础提示词 x 两种类型（具身-感官 / 关系-过程） |
+This repository contains the official code, generated image datasets, prompt lists, and evaluation scripts for the paper: **"When Surprise and Creative Value Show Different Orderings: Computational Metrics and Human Judgments of Diffusion-Generated Art"** by Dmitry Galkin and Xin Zhang (Tomsk State University).
 
-## 计数关系（脚本会强制校验）
+## 📖 Overview
 
-```
-原始集     150 提示词 x 5 采样器 x 3 种子 = 2250
-实验 A      24 提示词 x 3 采样器 x 2 种子 =  144
-实验 B      24 提示词 x 5 噪声尺度 x 2 种子 =  240   （其中 90 张进专家评分）
-实验 C      20 基础提示词 x 2 类型 x 5 采样器 x 1 种子 = 200
-                                合计 = 2834
-```
+Computational metrics (FID, CLIP Score, LPIPS, etc.) are routinely used to evaluate and rank diffusion models. However, their relationship to human judgments of creative value remains undiagnosed at the sampler level. 
 
-## 替换说明
+In this study, we compared **eight SDXL samplers** across 150 abstract prompts, generating a total of **2,834 images**. By combining computational metrics with human ratings (from both digital-art graduate students and professional artists/curators), we found that **higher perceived surprise does not uniformly correspond to higher creative value**. The computational metrics and human ratings provided different orderings across the tested configurations.
 
-`abstract_prompts_150.json` 中的 150 条为**按论文描述重建**的抽象概念短语
-（论文只给出了一个示例："the feeling of solitude at dawn"）。
-如果你手头有原始 run 的提示词清单，直接替换该文件内容、保持 150 条即可，
-`prompts/analysis_prompts_24.json` 同步替换为你实际使用的 24 条，
-其余脚本会自动跟随，无需改动。
+## 📂 Repository Structure
+
+*   `prompts/`: Contains the 150 abstract concept prompts used in the main experiment, and the 20 prompts used in Experiment C.
+*   `scripts/`: Python scripts for image generation (using `Diffusers`), computational metric calculation (FID, CLIP, LPIPS, NIQE, BRISQUE, DreamSim), and statistical analysis (Mixed models, ANOVA).
+*   `data/`:
+    *   `student_ratings.csv`: Image-level means for the 192 rated images (4 raters).
+    *   `expert_ratings.csv`: Image-level means for the 90 rated images across noise scales 0, 0.5, and 1.0 (8 experts).
+    *   `computational_metrics.csv`: Calculated metrics for all evaluated image sets.
+*   `figures/`: High-resolution figures included in the paper (e.g., alignment matrices, rating distributions).
+
+## 🛠 Experimental Design Summary
+
+The study utilized `SDXL Base 1.0` via `Diffusers v0.25.0` (CFG scale = 7.5, steps = 30, resolution = 1024x1024).
+
+| Experiment | Description | Configuration | Total Images |
+| :--- | :--- | :--- | :--- |
+| **Original Set** | Baseline samplers | 150 prompts × 5 samplers × 3 seeds | 2,250 |
+| **Experiment A** | Added samplers | 24 prompts × 3 samplers × 2 seeds | 144 |
+| **Experiment B** | Continuous noise scale | 24 prompts × 5 scales (0-1.0) × 2 seeds | 240 |
+| **Experiment C** | Prompt type exploration | 20 prompts × 2 types × 5 samplers × 1 seed | 200 |
+| **Total** | | | **2,834** |
+
+*Note: Human ratings were collected on a subset of seed-42 images (192 images for students; 90 images for experts).*
+
+## 🚀 Quick Start / Usage
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/zx13913865173-Guns/Surprise-Sampler.git
+   cd Surprise-Sampler
