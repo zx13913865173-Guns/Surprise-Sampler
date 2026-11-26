@@ -1,12 +1,5 @@
-"""集合级 FID（论文 2.4 节 / 3.1 节）。
 
-论文口径：仅对三个代表性采样器（Euler a、DPM++ 2M Karras、DDIM）计算；
-用 24 张 seed-42 生成图与 1000 张 COCO-2017 验证集参考图（统一缩放到 1024x1024）
-比较。LMS 与 Heun 不进入 FID 比较。集合级指标为描述性，无采样器内标准差。
 
-实现：优先用 pytorch-fid / clean-fid；参考集路径由 --reference 指定。
-
-用法：
     python -m src.evaluation.fid --images outputs/images/original --reference data/coco2017_val_1000 \
         --out outputs/scores/fid_original.csv
     python -m src.evaluation.fid --self-test
