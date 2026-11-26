@@ -1,14 +1,4 @@
-"""信度指标：ICC(2,k)、Fleiss' kappa、Cronbach's alpha、Kendall's W。
 
-论文 2.5 节报告值：
-    学生评分    ICC(2,k) = 0.86，Fleiss' kappa = 0.73
-    专家惊喜度  ICC(2,k) = 0.88
-    专家创造价值 ICC(2,k) = 0.90，Kendall's W = 0.74 (p < 0.001)
-    三题项创造价值 Cronbach's alpha = 0.87
-    预验证五维 alpha：surprise 0.89 / inspirational 0.87 / usability 0.85 /
-                     aesthetic 0.88 / clarity 0.91
-
-输入约定：data 为 (n_subjects, n_raters) 的评分矩阵（行=被评对象，列=评分者）。
 """
 
 from __future__ import annotations
@@ -25,17 +15,14 @@ def cronbach_alpha(data: np.ndarray) -> float:
     data = np.asarray(data, dtype=float)
     k = data.shape[1]
     if k < 2:
-        raise ValueError("至少需要两个题项")
+        raise ValueError
     item_var = data.var(axis=0, ddof=1)
     total_var = data.sum(axis=1).var(ddof=1)
     return float(k / (k - 1) * (1 - item_var.sum() / total_var))
 
 
 def icc_2k(data: np.ndarray) -> float:
-    """ICC(2,k)：双向随机效应、平均测量、绝对一致性。
-
-    行 = 被评对象（n），列 = 评分者（k）。
-    ICC(2,k) = (MSR - MSE) / (MSR + (MSC - MSE) / n)
+   
     """
     data = np.asarray(data, dtype=float)
     n, k = data.shape
@@ -58,8 +45,7 @@ def icc_2k(data: np.ndarray) -> float:
 def fleiss_kappa(counts: np.ndarray) -> float:
     """Fleiss' kappa。
 
-    counts：形状 (n_items, n_categories) 的整数计数矩阵，
-    每行之和 = 评分者人数 m（固定）。
+
     """
     counts = np.asarray(counts, dtype=float)
     n_items, n_cat = counts.shape
@@ -80,7 +66,7 @@ def fleiss_kappa(counts: np.ndarray) -> float:
 def kendall_w(data: np.ndarray) -> tuple[float, float]:
     """Kendall's W（含结校正），返回 (W, p)。
 
-    行 = 被评对象（n），列 = 评分者（k）。
+ 
     """
     data = np.asarray(data, dtype=float)
     n, k = data.shape
@@ -106,7 +92,7 @@ def kendall_w(data: np.ndarray) -> tuple[float, float]:
 
 def aggregate_to_image_means(long_df: pd.DataFrame, subject_col: str = "image_id",
                              rater_col: str = "rater_id", value_col: str = "rating") -> pd.Series:
-    """把长表评分聚合为对象级均值（论文：评分聚合为图像级均值）。"""
+ 
     return long_df.groupby(subject_col)[value_col].mean()
 
 
@@ -122,7 +108,7 @@ def reliability_report(data: np.ndarray, label: str = "") -> dict:
 
 
 if __name__ == "__main__":
-    # 自检：在论文报告的信度水平附近构造数据，检查各指标实现合理
+    
     rng = np.random.default_rng(42)
     true_scores = rng.normal(3, 1, size=(192, 1))
     ratings = true_scores + rng.normal(0, 0.7, size=(192, 4))
