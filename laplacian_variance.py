@@ -1,8 +1,4 @@
-"""拉普拉斯方差（论文 2.4 节：仅作描述性观察，不作为内容稳定性指标）。
 
-用 scipy.ndimage 的离散拉普拉斯算子实现，避免额外的图像处理依赖。
-
-用法：
     python -m src.evaluation.laplacian_variance --images outputs/images/original --out outputs/scores/lapvar_original.csv
 """
 
