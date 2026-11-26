@@ -1,18 +1,4 @@
-"""混合模型的联合检验工具。
 
-statsmodels 的 ``MixedLMResults.f_test`` 走的是正态/卡方近似（分母自由度视为无穷），
-而论文用 lme4 + lmerTest，分母自由度由 Satterthwaite 近似给出。两者在小样本下差别可观。
-
-本模块把 Wald 统计量除以约束个数得到 F 值，再用显式指定的分母自由度查 F 分布，
-从而复现论文「Satterthwaite 近似 → 冻结整数分母自由度」的报数口径：
-
-    M1  Surprise ~ Sampler + (1|Prompt)          df2 = 192 - 8     = 184
-    M2  Surprise ~ Sampler + clarity + (1|Prompt) df2 = 192 - 8 - 1 = 183
-    实验 C CLIP ~ PromptType * Sampler + (1|Prompt) df2 = 200 - 9 - 20 = 171
-
-注意：真实 Satterthwaite 自由度是浮点数，论文报的是取整后的值；本模块按论文给出的
-整数值核对，使用真实数据时可通过 ``df_denom=None`` 退回卡方近似。
-"""
 
 from __future__ import annotations
 
