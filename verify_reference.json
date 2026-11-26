@@ -1,0 +1,182 @@
+[
+  {
+    "name": "图像数 2250+144+240+200=2834",
+    "status": "PASS",
+    "detail": "2250+144+240+200=2834"
+  },
+  {
+    "name": "150 x 5 x 3 = 2250",
+    "status": "PASS",
+    "detail": "2250"
+  },
+  {
+    "name": "3 x 24 x 2 = 144",
+    "status": "PASS",
+    "detail": "144"
+  },
+  {
+    "name": "5 x 24 x 2 = 240",
+    "status": "PASS",
+    "detail": "240"
+  },
+  {
+    "name": "2 x 20 x 5 x 1 = 200",
+    "status": "PASS",
+    "detail": "200"
+  },
+  {
+    "name": "24 x 8 = 192 学生评分图数",
+    "status": "PASS",
+    "detail": "192"
+  },
+  {
+    "name": "4 x 192 = 768 学生评分条数",
+    "status": "PASS",
+    "detail": "768"
+  },
+  {
+    "name": "8 x 90 = 720 专家评分条数 x2",
+    "status": "PASS",
+    "detail": "720/720"
+  },
+  {
+    "name": "768+720+720 = 2208 主分析评分",
+    "status": "PASS",
+    "detail": "2208"
+  },
+  {
+    "name": "150-24=126 条未分析提示词",
+    "status": "PASS",
+    "detail": "126"
+  },
+  {
+    "name": "126 x 5 x 3 = 1890 张未分析图像",
+    "status": "PASS",
+    "detail": "1890"
+  },
+  {
+    "name": "24 x 3 = 72 每采样器计算图数",
+    "status": "PASS",
+    "detail": "72"
+  },
+  {
+    "name": "24 x 2 = 48 每新增采样器图数",
+    "status": "PASS",
+    "detail": "48"
+  },
+  {
+    "name": "3 x 30 = 90 专家评分图像数",
+    "status": "PASS",
+    "detail": "90"
+  },
+  {
+    "name": "学生 M1: F(7,184)=2.41 -> p",
+    "status": "PASS",
+    "detail": "反算 p=0.0220，报告 0.022"
+  },
+  {
+    "name": "学生 M2: F(7,183)=2.18 -> p",
+    "status": "PASS",
+    "detail": "反算 p=0.0379，报告 0.039"
+  },
+  {
+    "name": "专家惊喜度: F(2,87)=4.12 -> p",
+    "status": "PASS",
+    "detail": "反算 p=0.0195，报告 0.02"
+  },
+  {
+    "name": "专家创造价值: F(2,87)=4.18 -> p",
+    "status": "PASS",
+    "detail": "反算 p=0.0185，报告 0.019"
+  },
+  {
+    "name": "实验 C 交互: F(4,171)=1.63 -> p",
+    "status": "PASS",
+    "detail": "反算 p=0.1689，报告 0.17"
+  },
+  {
+    "name": "实验 C 主效应: F(1,171)=0.47 -> p",
+    "status": "PASS",
+    "detail": "反算 p=0.4939，报告 0.494"
+  },
+  {
+    "name": "专家惊喜度: eta2 = F*df1/(F*df1+df2)",
+    "status": "PASS",
+    "detail": "反算 0.0865，报告 0.087"
+  },
+  {
+    "name": "专家创造价值: eta2 = F*df1/(F*df1+df2)",
+    "status": "PASS",
+    "detail": "反算 0.0877，报告 0.088"
+  },
+  {
+    "name": "surprise 0.0_vs_0.5: q=2.61 -> Tukey p (k=3, df=87)",
+    "status": "WARN",
+    "detail": "反算 p=0.161，报告 0.114"
+  },
+  {
+    "name": "surprise 0.0_vs_1.0: q=2.35 -> Tukey p (k=3, df=87)",
+    "status": "WARN",
+    "detail": "反算 p=0.226，报告 0.172"
+  },
+  {
+    "name": "surprise 0.5_vs_1.0: q=0.26 -> Tukey p (k=3, df=87)",
+    "status": "WARN",
+    "detail": "反算 p=0.982，报告 0.961"
+  },
+  {
+    "name": "creative_value 0.0_vs_0.5: q=2.87 -> Tukey p (k=3, df=87)",
+    "status": "WARN",
+    "detail": "反算 p=0.111，报告 0.071"
+  },
+  {
+    "name": "creative_value 0.0_vs_1.0: q=1.15 -> Tukey p (k=3, df=87)",
+    "status": "WARN",
+    "detail": "反算 p=0.696，报告 0.661"
+  },
+  {
+    "name": "creative_value 0.5_vs_1.0: q=1.72 -> Tukey p (k=3, df=87)",
+    "status": "WARN",
+    "detail": "反算 p=0.447，报告 0.324"
+  },
+  {
+    "name": "惊喜度~CLIP: r=0.183 -> p_BH",
+    "status": "PASS",
+    "detail": "反算 BH p=0.01106，报告 0.011"
+  },
+  {
+    "name": "启发性~CLIP: r=0.319 -> p_BH",
+    "status": "PASS",
+    "detail": "反算 BH p=0.00002，报告 0.0001"
+  },
+  {
+    "name": "惊喜度~启发性: r=0.214 -> p_BH",
+    "status": "PASS",
+    "detail": "反算 BH p=0.00432，报告 0.004"
+  },
+  {
+    "name": "启发性~CLIP: r2 = r^2",
+    "status": "PASS",
+    "detail": "反算 0.1018，报告 0.102"
+  },
+  {
+    "name": "惊喜度~启发性: r2 = r^2",
+    "status": "PASS",
+    "detail": "反算 0.0458，报告 0.046"
+  },
+  {
+    "name": "Bonferroni 0.05/28",
+    "status": "PASS",
+    "detail": "0.05/28=0.0017857"
+  },
+  {
+    "name": "专家 Bonferroni 0.05/2 = 0.025",
+    "status": "PASS",
+    "detail": "0.025"
+  },
+  {
+    "name": "由 ANOVA F 反推的 q 是否等于报告的 Tukey q",
+    "status": "WARN",
+    "detail": "由 F=4.12, 均值 [2.6, 3.6, 3.5] 反推 MSW=2.209, q=3.69；报告 q=2.61"
+  }
+]

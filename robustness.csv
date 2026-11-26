@@ -1,0 +1,5 @@
+check,value
+CFG 15 vs 7.5 (surprise delta),-0.4
+"steps 50 vs 20, Euler a (surprise delta)",0.3
+SD1.5 Spearman rho (5 samplers),0.86
+SD3.5 Spearman rho (5 samplers),0.79

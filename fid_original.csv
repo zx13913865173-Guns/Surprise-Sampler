@@ -1,0 +1,4 @@
+sampler,n_images,fid
+euler_a,24,152.4
+dpmpp_2m_karras,24,85.1
+ddim,24,86.2

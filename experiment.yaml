@@ -1,0 +1,149 @@
+# ============================================================================
+# 实验配置：SDXL 采样器与人类判断研究
+# When Surprise Does Not Predict Value
+# 全部数值逐条取自论文正文（2.3 节图像生成、2.1 节实验设计、2.8 节统计）
+# ============================================================================
+
+paper:
+  title: "When Surprise Does Not Predict Value: Computational Metrics and Human Judgments of Diffusion-Generated Art"
+  authors: ["Dmitry Galkin", "Xin Zhang"]
+  affiliation: "Tomsk State University, Tomsk, Russia"
+
+# ---------------------------------------------------------------------------
+# 模型与统一生成参数（论文 2.3 节）
+# ---------------------------------------------------------------------------
+generation:
+  model_id: "stabilityai/stable-diffusion-xl-base-1.0"   # SDXL Base 1.0
+  diffusers_version: "0.25.0"
+  cfg_scale: 7.5
+  num_inference_steps: 30
+  resolution: [1024, 1024]
+  negative_prompt: "low quality, blurry, distorted, ugly, bad anatomy"
+
+seeds:
+  main_rating_seed: 42          # 主观评分 subet 使用 seed 42
+  original_seeds: [42, 43, 44]  # 五个原始采样器：每提示词 3 个种子
+  added_seeds: [42, 43]         # 实验 A 三个采样器：每提示词 2 个种子
+
+# ---------------------------------------------------------------------------
+# 实验设计（论文 2.1 节）
+# 总图像数 = 2250 + 144 + 240 + 200 = 2834
+# ---------------------------------------------------------------------------
+experiments:
+  original:                    # 原始集：150 提示词 x 5 采样器 x 3 种子
+    prompts: 150
+    samplers: ["euler_a", "dpmpp_2m_karras", "lms", "heun", "ddim"]
+    seeds: [42, 43, 44]
+    images: 2250
+    analysis_note: "其中 24 条提示词进入分析；其余 126 条（1890 张）仅入库不再分析"
+  experiment_a:                # 新增 3 个采样器：3 采样器 x 24 提示词 x 2 种子
+    prompts: 24
+    samplers: ["dpm2_a", "kdpm2_ancestral", "unipc"]
+    seeds: [42, 43]
+    images: 144
+  experiment_b:                # Euler a 框架内的连续噪声尺度操纵
+    prompts: 24
+    samplers: ["euler_a"]
+    noise_scales: [0.0, 0.25, 0.5, 0.75, 1.0]
+    seeds: [42, 43]
+    images: 240
+    expert_rated:                # 仅 0/0.5/1.0 三档各 30 张进入专家评分
+      scales: [0.0, 0.5, 1.0]
+      per_scale: 30
+      images: 90
+    descriptive_only: 150        # 剩余 150 张仅做描述性计算检查
+  experiment_c:                # 提示词类型异质性检查
+    base_prompts: 20
+    prompt_types: 2
+    samplers: ["euler_a", "dpmpp_2m_karras", "lms", "heun", "ddim"]
+    seeds: [42]
+    images: 200
+
+# ---------------------------------------------------------------------------
+# 计算指标集（论文 2.4 节 / 3.1 节）
+# ---------------------------------------------------------------------------
+computational_metrics:
+  lpips:
+    role: "inter-seed perceptual distance (stability), NOT a no-reference quality score"
+    pairs_per_prompt:
+      5_sampler_set: 3      # 三个种子 -> 三对
+      3_sampler_set: 1      # 两个种子 -> 一对
+    backbone: "alex"        # 论文未指明骨干；AlexNet/VGG 均可，须在配置中固定
+  niqe:   {role: "no-reference quality"}
+  brisque: {role: "no-reference quality"}
+  clip_score:
+    role: "semantic alignment (image-text cosine)"
+    model: "ViT-L/14"        # CLIP-L
+  fid:
+    role: "set-level distributional distance"
+    samplers: ["euler_a", "dpmpp_2m_karras", "ddim"]   # 仅三个代表性采样器
+    reference_set: "COCO-2017 validation, 1000 images, resized to 1024x1024"
+    excluded: ["lms", "heun"]
+    note: "集合级指标，描述性，无采样器内标准差"
+  dreamsim:
+    role: "stochastic diversity"
+    backbone: "dreamsim"
+  laplacian_variance:
+    role: "descriptive only; not used as a content-stability indicator"
+
+# ---------------------------------------------------------------------------
+# 主观评分（论文 2.5 节）
+# ---------------------------------------------------------------------------
+human_ratings:
+  students:
+    raters: 4
+    images: 192             # 24 图/采样器 x 8 采样器, seed 42
+    ratings_total: 768      # 4 评分者 x 192 图
+    scale: 5
+    dimensions: [surprise, inspirational, usability, aesthetic, clarity]
+  experts:
+    raters: 8
+    images: 90              # 实验 B 噪声尺度 0/0.5/1.0 各 30 张
+    surprise_scale: 5
+    value_scale: 7          # originality / artistic value / exhibitability 三项均值
+    surprise_ratings_total: 720
+    value_ratings_total: 720
+    per_scale_composition: "24 张 seed-42 图 + 6 张第二种子的图（提示词 1/5/9/13/17/21）"
+
+# ---------------------------------------------------------------------------
+# 统计分析（论文 2.8 节）
+# ---------------------------------------------------------------------------
+statistics:
+  student_model:
+    m1: "Surprise ~ Sampler (8 levels) + (1|Prompt)"
+    m2: "Surprise ~ Sampler + clarity + (1|Prompt)"
+    df: "Satterthwaite"
+    posthoc: "Bonferroni over 28 pairs, alpha = 0.05/28 = 0.0017857"
+  expert_model:
+    design: "one-way ANOVA on 90 image-level expert means across 3 noise scales"
+    constructs: [surprise, creative_value]
+    multiple_comparison: "Bonferroni-adjusted alpha = 0.025 for each of the two ANOVAs"
+    posthoc: "Tukey HSD"
+  experiment_c_model:
+    formula: "CLIP ~ PromptType * Sampler + (1|Prompt)"
+    df: "Satterthwaite"
+  correlations:
+    method: "Pearson within the N=192 student rating set"
+    correction: "Benjamini-Hochberg across 3 tests"
+
+# ---------------------------------------------------------------------------
+# 稳健性检查（论文 2.7 / 3.5 节）
+# ---------------------------------------------------------------------------
+robustness:
+  model_version: ["SD1.5", "SD3.5"]
+  cfg_scale: [3.0, 15.0]
+  steps: [20, 50]
+  design: "50 提示词 x 5 采样器；独立生成集，不计入 2834 张"
+  reported:
+    cfg_15_vs_7_5_surprise_delta: -0.4
+    steps_50_vs_20_euler_a_surprise_delta: 0.3
+    sd15_spearman_rho: 0.86
+    sd35_spearman_rho: 0.79
+
+outputs:
+  manifests: "outputs/manifests"
+  images: "outputs/images"
+  scores: "outputs/scores"
+  ratings: "outputs/ratings"
+  tables: "outputs/tables"
+  figures: "outputs/figures"

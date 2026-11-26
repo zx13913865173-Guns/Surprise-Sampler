@@ -1,0 +1,162 @@
+{
+  "_note": "论文报告的每一个数值。scripts/verify_reference.py 会用它做确定性反算核对；scripts/demo_scores_from_reference.py 会用它合成可跑通全流程的模拟数据。null 表示论文未报告该单元格。",
+  "source": "When Surprise Does Not Predict Value: Computational Metrics and Human Judgments of Diffusion-Generated Art (Xin Zhang, Dmitry Galkin, Tomsk State University)",
+  "image_counts": {
+    "original_150x5x3": 2250,
+    "experiment_a_3x24x2": 144,
+    "experiment_b_5x24x2": 240,
+    "experiment_c_2x20x5x1": 200,
+    "total_generated": 2834,
+    "analysis_prompts": 24,
+    "unanalyzed_prompts": 126,
+    "unanalyzed_images": 1890,
+    "computational_original_per_sampler": 72,
+    "computational_added_per_sampler": 48,
+    "expert_rated_images": 90,
+    "experiment_b_descriptive_only": 150,
+    "student_images": 192,
+    "student_ratings_total": 768,
+    "expert_surprise_ratings_total": 720,
+    "expert_value_ratings_total": 720,
+    "primary_analysis_ratings": 2208
+  },
+  "computational_metrics": {
+    "lpips_inter_seed_mean": {
+      "euler_a": 0.416,
+      "dpmpp_2m_karras": 0.222,
+      "lms": null,
+      "heun": null,
+      "ddim": null,
+      "dpm2_a": 0.381,
+      "kdpm2_ancestral": 0.394,
+      "unipc": 0.231
+    },
+    "niqe": {
+      "euler_a": 5.8,
+      "dpmpp_2m_karras": null,
+      "lms": null,
+      "heun": null,
+      "ddim": 4.3,
+      "dpm2_a": 5.5,
+      "kdpm2_ancestral": 5.6,
+      "unipc": 4.7
+    },
+    "brisque": {
+      "euler_a": 38.2,
+      "dpmpp_2m_karras": null,
+      "lms": null,
+      "heun": null,
+      "ddim": 28.7,
+      "dpm2_a": 36.4,
+      "kdpm2_ancestral": 37.1,
+      "unipc": 31.2
+    },
+    "fid_set_level": {
+      "euler_a": 152.4,
+      "dpmpp_2m_karras": 85.1,
+      "ddim": 86.2,
+      "_reference_set": "1000-image COCO-2017 validation set at 1024x1024",
+      "_excluded": ["lms", "heun"]
+    },
+    "clip_score": {
+      "_note": "论文未报告逐采样器的 CLIP Score 均值，只报告了相关分析",
+      "per_sampler": null
+    }
+  },
+  "student_ratings_mean": {
+    "surprise": {
+      "euler_a": 3.9,
+      "dpmpp_2m_karras": 3.4,
+      "lms": null,
+      "heun": null,
+      "ddim": 2.3,
+      "dpm2_a": 3.7,
+      "kdpm2_ancestral": 3.8,
+      "unipc": 3.2
+    },
+    "inspirational": {"_max": "dpmpp_2m_karras = 3.7"},
+    "aesthetic": {"_max": "dpmpp_2m_karras = 3.8"},
+    "clarity": {"_max": "ddim = 3.8"}
+  },
+  "student_model": {
+    "M1": {
+      "formula": "Surprise ~ Sampler + (1|Prompt)",
+      "N": 192,
+      "F": 2.41,
+      "df1": 7,
+      "df2": 184,
+      "p": 0.022,
+      "marginal_R2": 0.09,
+      "conditional_R2": 0.16
+    },
+    "M1_posthoc_uncorrected": {
+      "euler_a_vs_ddim": 0.008,
+      "euler_a_vs_heun": 0.025,
+      "dpmpp_2m_karras_vs_ddim": 0.032
+    },
+    "M2": {
+      "formula": "Surprise ~ Sampler + clarity + (1|Prompt)",
+      "N": 192,
+      "F": 2.18,
+      "df1": 7,
+      "df2": 183,
+      "p": 0.039,
+      "marginal_R2": 0.08,
+      "conditional_R2": 0.15,
+      "clarity_covariate_p": 0.001,
+      "euler_a_vs_ddim_uncorrected_p": 0.006
+    },
+    "bonferroni": {"pairs": 28, "alpha": 0.0017857, "survived": 0}
+  },
+  "expert": {
+    "image_level_means": {
+      "surprise":  {"scale_0.0": 2.6, "scale_0.5": 3.6, "scale_1.0": 3.5},
+      "creative_value": {"scale_0.0": 4.5, "scale_0.5": 5.5, "scale_1.0": 4.9}
+    },
+    "anova": {
+      "surprise":       {"F": 4.12, "df1": 2, "df2": 87, "p": 0.020, "eta2": 0.087},
+      "creative_value": {"F": 4.18, "df1": 2, "df2": 87, "p": 0.019, "eta2": 0.088}
+    },
+    "bonferroni_alpha": 0.025,
+    "tukey": {
+      "surprise": {
+        "0.0_vs_0.5": {"q": 2.61, "p": 0.114},
+        "0.0_vs_1.0": {"q": 2.35, "p": 0.172},
+        "0.5_vs_1.0": {"q": 0.26, "p": 0.961}
+      },
+      "creative_value": {
+        "0.0_vs_0.5": {"q": 2.87, "p": 0.071},
+        "0.0_vs_1.0": {"q": 1.15, "p": 0.661},
+        "0.5_vs_1.0": {"q": 1.72, "p": 0.324}
+      }
+    }
+  },
+  "robustness": {
+    "cfg_15_vs_7_5_surprise_delta": -0.4,
+    "steps_50_vs_20_euler_a_surprise_delta": 0.3,
+    "sd15_spearman_rho_over_5_samplers": 0.86,
+    "sd35_spearman_rho_over_5_samplers": 0.79
+  },
+  "experiment_c": {
+    "prompttype_x_sampler": {"F": 1.63, "df1": 4, "df2": 171, "p": 0.170},
+    "prompttype_main": {"F": 0.47, "df1": 1, "df2": 171, "p": 0.494}
+  },
+  "correlations_N192": {
+    "surprise_clip":           {"r": 0.183, "p_bh": 0.011},
+    "inspirational_clip":      {"r": 0.319, "r2": 0.102, "p_bh": 0.0001, "p_bh_label": "< 0.001"},
+    "surprise_inspirational":  {"r": 0.214, "r2": 0.046, "p_bh": 0.004}
+  },
+  "reliability": {
+    "student_icc_2k": 0.86,
+    "student_fleiss_kappa": 0.73,
+    "expert_surprise_icc_2k": 0.88,
+    "expert_value_icc_2k": 0.90,
+    "expert_value_kendall_w": 0.74,
+    "kendall_w_p": 0.001,
+    "cronbach_alpha": {
+      "surprise": 0.89, "inspirational": 0.87, "usability": 0.85,
+      "aesthetic": 0.88, "clarity": 0.91, "expert_creative_value": 0.87
+    },
+    "cfa": {"CFI": 0.96, "TLI": 0.95, "RMSEA": 0.048, "SRMR": 0.041}
+  }
+}

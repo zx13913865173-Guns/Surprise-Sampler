@@ -1,0 +1,32 @@
+{
+  "_note": "论文 2.1 节：从 150 条原始提示词中随机选取的 24 条分析集。计算指标集、人类评分 seed-42 子集、实验 A/B 全部使用这同 24 条；其余 126 条（1,890 张图）仅用于扩充提示词池，不进入任何分析。",
+  "_count": 24,
+  "subset_of": "abstract_prompts_150.json",
+  "selection": "first 24 of the 150 (论文记为随机选取；此处按顺序取前 24 条以便复现，如需严格随机请用 numpy.random.default_rng(42).choice(150, 24, replace=False))",
+  "prompts": [
+    "the feeling of solitude at dawn",
+    "the weight of an unanswered question",
+    "the texture of silence in a winter forest",
+    "the taste of a memory you cannot place",
+    "the vertigo of standing at a cliff edge",
+    "the warmth of a kitchen at midnight",
+    "the coldness of a formal goodbye",
+    "the ache of an empty train platform",
+    "the sound of rain on a tin roof",
+    "the color of homesickness",
+    "the feeling of being watched by a forest",
+    "the instant before a storm breaks",
+    "the last breath of daylight",
+    "the first morning after grief",
+    "the sensation of drowning in slow motion",
+    "the arithmetic of loneliness",
+    "the geometry of an apology",
+    "the temperature of a stranger's kindness",
+    "the smell of a library in August",
+    "the afterimage of a firework",
+    "the pause between two heartbeats",
+    "the heaviness of a Sunday afternoon",
+    "the drift of an unfinished sentence",
+    "the brightness of a forgotten name"
+  ]
+}

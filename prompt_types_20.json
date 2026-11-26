@@ -1,0 +1,30 @@
+{
+  "_note": "论文 2.2 节实验 C：20 条基础提示词，每条渲染为两种类型（embodied/sensory 具身-感官型；relational/process 关系-过程型）。2 类型 x 20 条 x 5 采样器 x 1 种子 = 200 张，用于探索性计算异质性检验（CLIP Score，PromptType x Sampler）。实验 C 使用五个原始采样器（Euler a、DPM++ 2M Karras、LMS、Heun、DDIM）。",
+  "_count": 20,
+  "types": {
+    "embodied_sensory": "具身/感官：以身体感受与感官词汇描述该概念",
+    "relational_process": "关系/过程：以关系、变化与过程词汇描述该概念"
+  },
+  "items": [
+    {"base": "solitude at dawn", "embodied_sensory": "the feeling of solitude at dawn on the skin", "relational_process": "how solitude moves through a morning"},
+    {"base": "an unanswered question", "embodied_sensory": "the bodily weight of an unanswered question", "relational_process": "how a question keeps returning"},
+    {"base": "silence in a winter forest", "embodied_sensory": "the texture of silence felt in a winter forest", "relational_process": "how silence gathers in a winter forest"},
+    {"base": "a memory you cannot place", "embodied_sensory": "the taste of a memory that will not be placed", "relational_process": "how a memory drifts out of place"},
+    {"base": "the edge of a cliff", "embodied_sensory": "the vertigo felt at the edge of a cliff", "relational_process": "how standing at a cliff edge changes balance"},
+    {"base": "a kitchen at midnight", "embodied_sensory": "the warmth of a kitchen at midnight", "relational_process": "how a kitchen at midnight holds a household"},
+    {"base": "a formal goodbye", "embodied_sensory": "the coldness felt in a formal goodbye", "relational_process": "how a formal goodbye closes a relation"},
+    {"base": "an empty platform", "embodied_sensory": "the ache of an empty train platform", "relational_process": "how an empty platform lengthens waiting"},
+    {"base": "rain on a tin roof", "embodied_sensory": "the sound of rain on a tin roof against the ear", "relational_process": "how rain on a tin roof measures an evening"},
+    {"base": "homesickness", "embodied_sensory": "the color of homesickness behind the eyes", "relational_process": "how homesickness grows between two places"},
+    {"base": "being watched by a forest", "embodied_sensory": "the feeling of a forest watching the back", "relational_process": "how attention circulates between forest and walker"},
+    {"base": "the instant before a storm", "embodied_sensory": "the pressure felt in the instant before a storm", "relational_process": "how a storm arrives through a held pause"},
+    {"base": "the last light", "embodied_sensory": "the last breath of daylight on the face", "relational_process": "how daylight withdraws toward evening"},
+    {"base": "the morning after grief", "embodied_sensory": "the first morning after grief in the body", "relational_process": "how grief reorganizes a first morning"},
+    {"base": "slow motion drowning", "embodied_sensory": "the sensation of drowning in slow motion", "relational_process": "how slowness changes the approach to drowning"},
+    {"base": "loneliness", "embodied_sensory": "the arithmetic of loneliness counted on the fingers", "relational_process": "how loneliness adds and subtracts company"},
+    {"base": "an apology", "embodied_sensory": "the geometry of an apology held in the hands", "relational_process": "how an apology rebuilds a boundary"},
+    {"base": "a stranger's kindness", "embodied_sensory": "the temperature of a stranger's kindness", "relational_process": "how a stranger's kindness transfers between people"},
+    {"base": "a library in August", "embodied_sensory": "the smell of a library in August", "relational_process": "how a library in August shelters its readers"},
+    {"base": "an afterimage", "embodied_sensory": "the afterimage of a firework on the retina", "relational_process": "how an afterimage outlives its cause"}
+  ]
+}

@@ -1,0 +1,9 @@
+sampler,clarity_delta,clarity_mean
+euler_a,0.0,3.5
+dpmpp_2m_karras,0.0,3.5
+lms,0.0,3.5
+heun,0.0,3.5
+ddim,0.0,3.5
+dpm2_a,0.0,3.5
+kdpm2_ancestral,0.0,3.5
+unipc,0.0,3.5

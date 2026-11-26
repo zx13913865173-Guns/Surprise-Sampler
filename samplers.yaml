@@ -1,0 +1,74 @@
+# ============================================================================
+# 八个采样器 -> Diffusers 调度器映射
+# 名称沿用 Automatic1111 / k-diffusion 的习惯写法（论文正文使用的写法）。
+# family: ancestral = 逐步注入新噪声的祖先采样；deterministic = 确定性积分
+# ============================================================================
+samplers:
+  euler_a:
+    display: "Euler a"
+    family: ancestral
+    scheduler: "EulerAncestralDiscreteScheduler"
+    kwargs: {}
+    groups: [original, experiment_b, experiment_c]
+
+  dpmpp_2m_karras:
+    display: "DPM++ 2M Karras"
+    family: deterministic
+    scheduler: "DPMSolverMultistepScheduler"
+    kwargs:
+      algorithm_type: "dpmsolver++"
+      use_karras_sigmas: true
+    groups: [original, experiment_c]
+
+  lms:
+    display: "LMS"
+    family: deterministic
+    scheduler: "LMSDiscreteScheduler"
+    kwargs: {}
+    groups: [original, experiment_c]
+
+  heun:
+    display: "Heun"
+    family: deterministic
+    scheduler: "HeunDiscreteScheduler"
+    kwargs: {}
+    groups: [original, experiment_c]
+
+  ddim:
+    display: "DDIM"
+    family: deterministic
+    scheduler: "DDIMScheduler"
+    kwargs: {}
+    groups: [original, experiment_c]
+
+  dpm2_a:
+    display: "DPM2 a"
+    family: ancestral
+    scheduler: "KDPM2AncestralDiscreteScheduler"
+    kwargs: {}
+    groups: [experiment_a]
+
+  kdpm2_ancestral:
+    display: "KDPM2 Ancestral"
+    family: ancestral
+    scheduler: "KDPM2AncestralDiscreteScheduler"
+    kwargs:
+      use_karras_sigmas: true   # Karras 噪声调度变体，与 DPM2 a 默认调度区分
+    groups: [experiment_a]
+
+  unipc:
+    display: "UniPC"
+    family: deterministic
+    scheduler: "UniPCMultistepScheduler"
+    kwargs: {}
+    groups: [experiment_a]
+
+# ---------------------------------------------------------------------------
+# 说明
+# ---------------------------------------------------------------------------
+# 论文正文把八个配置分为：
+#   祖先随机（3）：Euler a、DPM2 a、KDPM2 Ancestral
+#   确定性（5）：DPM++ 2M Karras、LMS、Heun、DDIM、UniPC
+# "DPM2 a" 与 "KDPM2 Ancestral" 同属二阶祖先型扩散求解器；两者在 Diffusers
+# 中同为 KDPM2AncestralDiscreteScheduler，区别在于噪声调度（默认 vs Karras）。
+# 若你的原始 run 使用的名字或调度与上表不同，请只改本文件，其余脚本会自动跟随。

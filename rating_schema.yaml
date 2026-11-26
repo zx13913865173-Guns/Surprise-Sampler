@@ -1,0 +1,67 @@
+# ============================================================================
+# 评分量表定义（论文 2.5 节）
+# 题项文字逐字取自论文，直接用于线上评分表实现。
+# ============================================================================
+student_dimensions:
+  surprise:
+    prompt_text: "To what degree does this image evoke a sense of unexpected aesthetic discovery?"
+    scale: 5
+    anchors: {1: "completely predictable", 5: "highly surprising"}
+  inspirational:
+    prompt_text: "To what extent does this image stimulate new creative ideas?"
+    scale: 5
+  usability:
+    prompt_text: "How usable is this image as a creative starting point?"
+    scale: 5
+  aesthetic:
+    prompt_text: "How aesthetically pleasing is this image?"
+    scale: 5
+  clarity:
+    prompt_text: "How clear is the image, and how free is it from artifacts?"
+    scale: 5
+
+expert_constructs:
+  surprise:
+    prompt_text: "To what degree does this image evoke a sense of unexpected aesthetic discovery?"
+    scale: 5
+    anchors: {1: "completely predictable", 5: "highly surprising"}
+  creative_value:
+    composite: "mean of three 7-point items"
+    items:
+      originality: "How original is this image?"
+      artistic_value: "How much artistic value does this image have?"
+      exhibitability: "How exhibitable is this image?"
+    scale: 7
+
+# ---------------------------------------------------------------------------
+# 信度与预验证（论文 2.5 节报告值，供一致性核对）
+# ---------------------------------------------------------------------------
+reliability_reported:
+  prevalidation_raters: 20
+  cronbach_alpha:
+    surprise: 0.89
+    inspirational: 0.87
+    usability: 0.85
+    aesthetic: 0.88
+    clarity: 0.91
+    expert_creative_value: 0.87
+  cfa:
+    CFI: 0.96
+    TLI: 0.95
+    RMSEA: 0.048
+    SRMR: 0.041
+    note: "四因子验证性因子分析"
+  student_icc_2k: 0.86
+  student_fleiss_kappa: 0.73
+  expert_surprise_icc_2k: 0.88
+  expert_value_icc_2k: 0.90
+  expert_value_kendall_w: 0.74
+
+# ---------------------------------------------------------------------------
+# 评分程序（论文 2.5 节 "Rater recruitment and data handling"）
+# ---------------------------------------------------------------------------
+procedure:
+  rater_ids: "每位评分者分配一个随机匿名 ID"
+  presentation: "图像随机顺序呈现，采样器标签隐藏"
+  storage: "加密机构服务器，保存 3 年"
+  consent: "自愿参与，不付酬；提交前可退出"
